@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IPAYNOW</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #7c3aed;
+      --primary-dark: #6d28d9;
+      --primary-light: #a78bfa;
+      --accent: #f43f5e;
+      --accent-dark: #e11d48;
+      --dark: #0f0f13;
+      --dark-card: #1a1a24;
+      --dark-border: #2a2a3a;
+      --text: #f1f1f4;
+      --text-muted: #9d9db5;
+      --gradient-1: linear-gradient(135deg, #7c3aed, #f43f5e);
+      --gradient-2: linear-gradient(135deg, #6d28d9, #c026d3);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--dark);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* ---- NAV ---- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(15, 15, 19, 0.8);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--dark-border);
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* ---- HERO ---- */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 2rem 4rem;
+      position: relative;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.15), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.4rem 1.2rem;
+      border-radius: 100px;
+      background: rgba(124, 58, 237, 0.15);
+      border: 1px solid rgba(124, 58, 237, 0.3);
+      color: var(--primary-light);
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      letter-spacing: -1.5px;
+    }
+
+    .hero h1 span {
+      background: var(--gradient-1);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ---- BUTTONS ---- */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gradient-1);
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(124, 58, 237, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(124, 58, 237, 0.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--dark-border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--primary-light);
+      background: rgba(124, 58, 237, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .btn-accent {
+      background: linear-gradient(135deg, #f43f5e, #fb7185);
+      color: #fff;
+      box-shadow: 0 4px 24px rgba(244, 63, 94, 0.3);
+    }
+
+    .btn-accent:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(244, 63, 94, 0.45);
+    }
+
+    .btn-dark {
+      background: var(--dark-card);
+      color: var(--text);
+      border: 1px solid var(--dark-border);
+    }
+
+    .btn-dark:hover {
+      border-color: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    /* ---- SECTIONS ---- */
+    section {
+      padding: 6rem 2rem;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--primary-light);
+      margin-bottom: 1rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -1px;
+    }
+
+    .section-sub {
+      text-align: center;
+      color: var(--text-muted);
+      max-width: 540px;
+      margin: 0 auto 3.5rem;
+      font-size: 1.05rem;
+    }
+
+    /* ---- FEATURES / CARDS ---- */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--dark-card);
+      border: 1px solid var(--dark-border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(124, 58, 237, 0.12);
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(124, 58, 237, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .card h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    /* ---- OFFERS SECTION ---- */
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .offer-card {
+      background: var(--dark-card);
+      border: 1px solid var(--dark-border);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .offer-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-1);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .offer-card:hover {
+      border-color: var(--primary);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(124, 58, 237, 0.12);
+    }
+
+    .offer-card:hover::before {
+      opacity: 1;
+    }
+
+    .offer-card .offer-emoji {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .offer-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .offer-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .offer-card .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .featured {
+      border-color: var(--primary);
+      box-shadow: 0 0 40px rgba(124, 58, 237, 0.1);
+    }
+
+    .featured::before {
+      opacity: 1;
+    }
+
+    .featured-badge {
+      display: inline-block;
+      padding: 0.3rem 0.8rem;
+      border-radius: 100px;
+      background: var(--gradient-1);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+    }
+
+    /* ---- HOW IT WORKS ---- */
+    .steps {
+      max-width: 700px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .step {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      min-width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: var(--gradient-1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.2rem;
+    }
+
+    .step-content h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+    }
+
+    .step-content p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* ---- CTA ---- */
+    .cta {
+      text-align: center;
+      padding: 6rem 2rem;
+    }
+
+    .cta-box {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--dark-card);
+      border: 1px solid var(--dark-border);
+      border-radius: 24px;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--gradient-1);
+    }
+
+    .cta-box h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+
+    .cta-box p {
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      font-size: 1.05rem;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ---- 18+ DISCLAIMER ---- */
+    .disclaimer {
+      background: rgba(244, 63, 94, 0.06);
+      border-top: 1px solid rgba(244, 63, 94, 0.15);
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .disclaimer p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .disclaimer strong {
+      color: var(--accent);
+    }
+
+    /* ---- FOOTER ---- */
+    footer {
+      border-top: 1px solid var(--dark-border);
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    footer .logo {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.8rem;
+    }
+
+    /* ---- MOBILE ---- */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.25rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      section {
+        padding: 4rem 1.25rem;
+      }
+
+      .hero {
+        padding: 7rem 1.25rem 3rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        max-width: 320px;
+        justify-content: center;
+      }
+
+      .cta-box {
+        padding: 3rem 1.5rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .step {
+        flex-direction: column;
+        text-align: center;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">IPAYNOW</div>
+    <ul class="nav-links">
+      <li><a href="#offers">Offers</a></li>
+      <li><a href="#how">How It Works</a></li>
+      <li><a href="#cta">Get Started</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="badge">18+ Only</div>
+      <h1>Get Paid <span>Instantly.</span><br>No Strings Attached.</h1>
+      <p>Discover exclusive offers and start earning today. One click is all it takes — real payouts, real fast.</p>
+      <div class="hero-buttons">
+        <!-- REFERRAL LINK BUTTON 1 -->
+        <a href="#" class="btn btn-primary">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Start Earning Now
+        </a>
+        <!-- REFERRAL LINK BUTTON 2 -->
+        <a href="#offers" class="btn btn-outline">View Offers</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section>
+    <p class="section-label">Why IPAYNOW</p>
+    <h2 class="section-title">Built for Results</h2>
+    <p class="section-sub">No gimmicks. No waiting. Just real offers that pay real money the moment you take action.</p>
+    <div class="cards-grid">
+      <div class="card">
+        <div class="card-icon">&#9889;</div>
+        <h3>Instant Payouts</h3>
+        <p>No holding periods, no delays. Complete an offer and the money is yours immediately.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128274;</div>
+        <h3>100% Discreet</h3>
+        <p>Your privacy is guaranteed. We never share your data or activity with anyone, ever.</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">&#128176;</div>
+        <h3>Top-Tier Offers</h3>
+        <p>We partner with the highest-paying networks to bring you premium offers with the best returns.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section id="offers">
+    <p class="section-label">Exclusive Offers</p>
+    <h2 class="section-title">Pick an Offer & Get Paid</h2>
+    <p class="section-sub">Each button links to a verified offer. Click, complete, and earn — it's that simple.</p>
+    <div class="offers-grid">
+
+      <!-- OFFER 1 -->
+      <div class="offer-card">
+        <div class="offer-emoji">&#128293;</div>
+        <h3>Offer #1</h3>
+        <p>Premium exclusive — high payout, limited availability. Don't miss out.</p>
+        <!-- REFERRAL LINK -->
+        <a href="#" class="btn btn-primary">Claim Offer</a>
+      </div>
+
+      <!-- OFFER 2 (FEATURED) -->
+      <div class="offer-card featured">
+        <span class="featured-badge">Most Popular</span>
+        <div class="offer-emoji">&#11088;</div>
+        <h3>Offer #2</h3>
+        <p>Our top-performing offer. Highest conversion rate and fastest payout.</p>
+        <!-- REFERRAL LINK -->
+        <a href="#" class="btn btn-accent">Claim Offer</a>
+      </div>
+
+      <!-- OFFER 3 -->
+      <div class="offer-card">
+        <div class="offer-emoji">&#128640;</div>
+        <h3>Offer #3</h3>
+        <p>Quick sign-up, instant reward. The easiest way to start earning right now.</p>
+        <!-- REFERRAL LINK -->
+        <a href="#" class="btn btn-primary">Claim Offer</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how">
+    <p class="section-label">Simple Process</p>
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-sub">Three steps. That's it.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Pick an Offer</h3>
+          <p>Browse the available offers above and choose the one that interests you.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>Complete It</h3>
+          <p>Follow the simple instructions on the offer page. Most take under 2 minutes.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Get Paid</h3>
+          <p>That's it — your payout is processed instantly. No hoops, no delays.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta" id="cta">
+    <div class="cta-box">
+      <h2>Ready to Start Earning?</h2>
+      <p>Don't wait. Pick an offer, take action, and get paid today.</p>
+      <div class="cta-buttons">
+        <!-- REFERRAL LINK BUTTON -->
+        <a href="#" class="btn btn-primary">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Get Started Now
+        </a>
+        <!-- REFERRAL LINK BUTTON -->
+        <a href="#" class="btn btn-dark">See All Offers</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <p><strong>18+ ONLY.</strong> By accessing this site, you confirm that you are at least 18 years of age. All offers are provided by third-party advertisers. IPAYNOW is not responsible for the content of external sites.</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="logo">IPAYNOW</div>
+    <p>&copy; 2026 IPAYNOW. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
